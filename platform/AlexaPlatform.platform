@@ -1,0 +1,7 @@
+Platform AlexaPlatform
+
+path "com.xatkit.alexa.platform.AlexaPlatform"
+
+actions {
+	Reply(message)
+}

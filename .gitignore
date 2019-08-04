@@ -1,0 +1,11 @@
+#Allows custom installation on multiple workspaces
+
+platform/\.project
+
+runtime/\.classpath
+runtime/\.project
+runtime/target/maven-archiver/pom\.properties
+
+*.class
+*.jar
+*.lst
