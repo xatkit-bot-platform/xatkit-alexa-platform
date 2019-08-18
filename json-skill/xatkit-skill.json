@@ -1,0 +1,37 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "xatkit",
+            "intents": [
+                {
+                    "name": "GeneralIntent",
+                    "slots": [
+                        {
+                            "name": "general_intent",
+                            "type": "XATKITGeneral"
+                        }
+                    ],
+                    "samples": [
+                        "{general_intent}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": [
+                {
+                    "name": "XATKITGeneral",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "general phrase"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
