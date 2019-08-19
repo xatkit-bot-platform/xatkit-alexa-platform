@@ -9,3 +9,6 @@ runtime/target/maven-archiver/pom\.properties
 *.class
 *.jar
 *.lst
+example/basic-reply/.project
+
+*.xmi
