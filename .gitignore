@@ -12,3 +12,5 @@ runtime/target/maven-archiver/pom\.properties
 example/basic-reply/.project
 
 *.xmi
+
+target/maven-archiver/
