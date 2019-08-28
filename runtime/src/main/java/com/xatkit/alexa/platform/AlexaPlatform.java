@@ -30,43 +30,11 @@ public class AlexaPlatform extends ChatPlatform {
 		//Registers a REST Endpoint to respond to alexa requests
 		this.getXatkitCore().getXatkitServer().registerRestEndpoint("/alexa/receiver", 
 		 (headers, param, content) -> {
-			 	
-			 	//Retrieves request body content
-                JsonObject contentObject = content.getAsJsonObject();
-                
-                //Gets request section
-                JsonObject request = contentObject.getAsJsonObject("request");                
-                
+			 	//Parses request body content
+                AlexaRequestHandler alexaRequestHandler = new AlexaRequestHandler(content);
                 //Builds a response object
-                JsonObject result = new JsonObject();
-                
-                JsonObject response = new JsonObject();
-                JsonObject outputSpeech = new JsonObject();
-                
-                result.addProperty("version", "1.0");
-                
-                outputSpeech.addProperty("type", "PlainText");
-                
-                //Checks if invocation
-                if(request.get("type").getAsString().equals("LaunchRequest"))
-                	outputSpeech.addProperty("text", "Hello! welcome to xatkit! What can I do for you?");
-                else {
-                	JsonObject intent = request.get("intent").getAsJsonObject();
-                	JsonObject slots = intent.get("slots").getAsJsonObject();
-                	JsonObject generalIntent = slots.get("general_intent").getAsJsonObject();
-                	
-                	outputSpeech.addProperty("text", generalIntent.get("value").getAsString());
-                }
-                	
-                
-                response.add("outputSpeech", outputSpeech);
-                
-                response.addProperty("shouldEndSession", false);
-                
-                result.add("response", response);
-                
-                Log.info("sent {0}",result.toString());
-                
+                JsonObject result = alexaRequestHandler.respondPlainText();
+                //Responds to Alexa
                 return result;
             });
 	}
