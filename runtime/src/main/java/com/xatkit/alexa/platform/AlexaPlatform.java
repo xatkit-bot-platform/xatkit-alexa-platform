@@ -32,13 +32,28 @@ public class AlexaPlatform extends ChatPlatform {
 		 (headers, param, content) -> {
 			 	
 			 	//Retrieves request body content
-                JsonObject contentObject = content.getAsJsonObject();
+               // JsonObject contentObject = content.getAsJsonObject();
                 
-                //LOGGING
-                Log.info("Content: {0}", contentObject.getAsString());
-                
-                //Builds a 
+                //Builds a response object
                 JsonObject result = new JsonObject();
+                
+                JsonObject body = new JsonObject();
+                JsonObject response = new JsonObject();
+                JsonObject outputSpeech = new JsonObject();
+                
+                result.addProperty("version", "1.0");
+                
+                outputSpeech.addProperty("type", "PlainText");
+                outputSpeech.addProperty("text", "Hello! welcome to xatkit! What can I do for you?");
+                
+                response.add("outputSpeech", outputSpeech);
+                
+                response.addProperty("shouldEndSession", true);
+                
+                result.add("response", response);
+                
+                Log.info("sent {0}",result.toString());
+                
                 return result;
             });
 	}
