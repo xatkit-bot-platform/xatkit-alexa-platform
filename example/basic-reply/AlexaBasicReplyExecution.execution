@@ -1,6 +1,0 @@
-import library "AlexaBasicReply/AlexaBasicReplyIntents.xmi"
-import library "CoreLibrary"
-import platform "AlexaPlatform/AlexaPlatform.xmi"
-
-on intent Basic do 
-	action AlexaPlatform.Reply(message: "Hi!")

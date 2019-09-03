@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<execution:ExecutionModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:common="com.xatkit.common" xmlns:execution="com.xatkit.execution">
+  <executionRules>
+    <event href="pathmap://XATKIT_CUSTOM_LIBRARY/AlexaBasicReplyLib#//@eventDefinitions.0"/>
+    <instructions xsi:type="execution:ActionInstance">
+      <action href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0"/>
+      <values>
+        <parameter href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0/@parameters.0"/>
+        <expression xsi:type="common:StringLiteral" value="Hi!"/>
+      </values>
+    </instructions>
+  </executionRules>
+  <imports xsi:type="common:LibraryImportDeclaration" path="AlexaBasicReply/AlexaBasicReply-Lib.xmi" alias="AlexaBasicReplyLib"/>
+  <imports xsi:type="common:LibraryImportDeclaration" path="CoreLibrary"/>
+  <imports xsi:type="common:PlatformImportDeclaration" path="AlexaPlatform"/>
+</execution:ExecutionModel>
