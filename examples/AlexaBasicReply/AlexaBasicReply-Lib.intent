@@ -3,5 +3,7 @@ Library AlexaBasicReplyIntents
 intent Basic {
 	inputs {
 		"Hello!"
+		"hello"
+		"hello!"
 	}
 }

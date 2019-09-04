@@ -2,5 +2,7 @@
 <intent:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intent="com.xatkit.intent" name="AlexaBasicReplyIntents">
   <eventDefinitions xsi:type="intent:IntentDefinition" name="Basic">
     <trainingSentences>Hello!</trainingSentences>
+    <trainingSentences>hello</trainingSentences>
+    <trainingSentences>hello!</trainingSentences>
   </eventDefinitions>
 </intent:Library>
