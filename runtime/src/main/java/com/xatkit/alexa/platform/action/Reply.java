@@ -2,19 +2,25 @@ package com.xatkit.alexa.platform.action;
 
 import com.xatkit.alexa.platform.AlexaPlatform;
 import com.xatkit.core.platform.action.RuntimeAction;
+import com.xatkit.core.platform.action.RuntimeMessageAction;
 import com.xatkit.core.session.XatkitSession;;
 
-public class Reply extends RuntimeAction<AlexaPlatform> {
+public class Reply extends RuntimeMessageAction<AlexaPlatform> {
 
-	public Reply(AlexaPlatform runtimePlatform, XatkitSession session) {
-		super(runtimePlatform, session);
-		// TODO Auto-generated constructor stub
+	public Reply(AlexaPlatform runtimePlatform, XatkitSession session, String message) {
+		super(runtimePlatform, session, message);
 	}
 
 	@Override
 	protected Object compute() throws Exception {
-		// TODO Auto-generated method stub
+		String requestId = (String) this.session.getRuntimeContexts().getContextValue("alexa", "requestId");
+		this.runtimePlatform.storeMessage(requestId, message);
 		return null;
 	}
 
+	@Override
+	protected XatkitSession getClientSession() {
+		// TODO this should be initialized with the payload content
+		return this.runtimePlatform.getXatkitCore().getOrCreateXatkitSession("alexa");
+	}
 }

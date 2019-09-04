@@ -2,10 +2,13 @@ package com.xatkit.alexa.platform.io;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.xatkit.alexa.AlexaUtils;
+import com.xatkit.core.XatkitException;
 import com.xatkit.core.platform.io.IntentRecognitionHelper;
 import com.xatkit.core.server.JsonRestHandler;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.intent.RecognizedIntent;
+import com.xatkit.plugins.chat.ChatUtils;
 import fr.inria.atlanmod.commons.log.Log;
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
@@ -13,6 +16,8 @@ import org.apache.http.NameValuePair;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static java.util.Objects.nonNull;
 
 public class AlexaRestHandler extends JsonRestHandler {
 
@@ -31,6 +36,8 @@ public class AlexaRestHandler extends JsonRestHandler {
 
         // Gets request section
         JsonObject request = contentObject.getAsJsonObject("request");
+        String requestId = request.get("requestId").getAsString();
+        Log.info("Request ID: {0}", requestId);
 
         // Flags request as invocation type
         boolean isLaunchRequest = request.get("type").getAsString().equals("LaunchRequest");
@@ -54,11 +61,22 @@ public class AlexaRestHandler extends JsonRestHandler {
             RecognizedIntent intent = IntentRecognitionHelper.getRecognizedIntent(generalIntent, session,
                     provider.getRuntimePlatform().getXatkitCore());
 
-            // set the session after the recognition because of decrementLifespan
-            session.getRuntimeContexts().setContextValue("chat", 1, "username", "toto");
-            session.getRuntimeContexts().setContextValue("chat", 1, "channel", "chan");
-            session.getRuntimeContexts().setContextValue("chat", 1, "rawMessage", generalIntent);
-
+            /*
+             * Set the session after the recognition because decrementLifespan will remove them otherwise.
+             * Note that we need to set the chat-related context values because AlexaPlatform extends ChatPlatform.
+             * The ChatPlatform superclass will check that these context values are set before propagating the intent
+             *  to the execution engine.
+             */
+            // TODO: I don't know if we can find the username from the payload content?
+            session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
+                    ChatUtils.CHAT_USERNAME_CONTEXT_KEY, "toto");
+            // This should be set with an identifier from the payload content that represent the channel/session
+            session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
+                    ChatUtils.CHAT_CHANNEL_CONTEXT_KEY, "chan");
+            session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
+                    ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY, generalIntent);
+            session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
+                    AlexaUtils.ALEXA_REQUEST_ID_CONTEXT_KEY, requestId);
 
             provider.sendEventInstance(intent, session);
         }
@@ -75,9 +93,25 @@ public class AlexaRestHandler extends JsonRestHandler {
         // Check if it is an invocation request
         if (isLaunchRequest) {
             // TODO: retrieve and send welcome message from AlexaUtils and configuration
-            outputSpeech.addProperty("text", "Hello! Welcome to Xatkit! What can I do for you?");
+            outputSpeech.addProperty("text", this.provider.getRuntimePlatform().getInvocationMessage());
         } else {
-            outputSpeech.addProperty("text", generalIntent);
+            /*
+             * Quickfix: wait here to be sure the Reply action has been executed. A better implementation would be to
+             *  be notified when a new message is available for this requestId.
+             */
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+
+            }
+            String responseMessage = this.provider.getRuntimePlatform().getMessage(requestId);
+            if (nonNull(responseMessage)) {
+                outputSpeech.addProperty("text", responseMessage);
+            } else {
+                // TODO this should not throw an exception, it is possible that the bot doesn't return anything. What
+                //  should we do in this case?
+                throw new XatkitException("No reply message found for Alexa request");
+            }
         }
 
         // Adds sub-branches to final response
