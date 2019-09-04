@@ -2,6 +2,14 @@ Platform AlexaPlatform
 
 path "com.xatkit.alexa.platform.AlexaPlatform"
 
+providers {
+	input AlexaIntentProvider {
+		creates context alexa with lifespan 1 {
+			sets parameter request_id
+		}
+	}
+}
+
 actions {
 	Reply(message)
 }

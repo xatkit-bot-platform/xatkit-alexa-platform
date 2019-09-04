@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
-<platform:PlatformDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:platform="com.xatkit.platform" name="AlexaPlatform" runtimePath="com.xatkit.alexa.platform.AlexaPlatform">
+<platform:PlatformDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:platform="com.xatkit.platform" name="AlexaPlatform" runtimePath="com.xatkit.alexa.platform.AlexaPlatform">
+  <eventProviderDefinitions xsi:type="platform:InputProviderDefinition" name="AlexaIntentProvider">
+    <outContexts name="alexa" lifeSpan="1">
+      <parameters name="request_id"/>
+    </outContexts>
+  </eventProviderDefinitions>
   <actions name="Reply">
     <parameters key="message"/>
   </actions>

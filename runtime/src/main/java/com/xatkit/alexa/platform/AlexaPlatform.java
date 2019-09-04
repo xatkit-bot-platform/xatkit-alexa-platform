@@ -1,13 +1,7 @@
 package com.xatkit.alexa.platform;
 
-import com.xatkit.alexa.AlexaUtils;
 import com.xatkit.core.XatkitCore;
-
 import com.xatkit.plugins.chat.platform.ChatPlatform;
-
-import com.google.gson.JsonObject;
-
-
 import fr.inria.atlanmod.commons.log.Log;
 import org.apache.commons.configuration2.Configuration;
 
@@ -18,24 +12,8 @@ import org.apache.commons.configuration2.Configuration;
  */
 public class AlexaPlatform extends ChatPlatform {	
 
-	//Alexa keychain
-	private AlexaUtils alexaUtils;
-	
 	public AlexaPlatform(XatkitCore xatkitCore, Configuration configuration) {
 		super(xatkitCore,configuration);
-		
-		//LOGGING
-		Log.info("Alexa core service started");
-		
-		//Registers a REST Endpoint to respond to alexa requests
-		this.getXatkitCore().getXatkitServer().registerRestEndpoint("/alexa/receiver", 
-		 (headers, param, content) -> {
-			 	//Parses request body content
-                AlexaRequestHandler alexaRequestHandler = new AlexaRequestHandler(content);
-                //Builds a response object
-                JsonObject result = alexaRequestHandler.respondPlainText();
-                //Responds to Alexa
-                return result;
-            });
+		Log.info("{0} started", this.getClass().getSimpleName());
 	}
 }

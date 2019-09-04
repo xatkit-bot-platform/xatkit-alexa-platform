@@ -1,11 +1,12 @@
 package com.xatkit.alexa.platform.io;
 
+import com.xatkit.alexa.platform.AlexaPlatform;
+import com.xatkit.plugins.chat.platform.io.WebhookChatIntentProvider;
 import org.apache.commons.configuration2.Configuration;
 
-import com.xatkit.alexa.platform.AlexaPlatform;
-import com.xatkit.plugins.chat.platform.io.ChatIntentProvider;
+public class AlexaIntentProvider extends WebhookChatIntentProvider<AlexaPlatform, AlexaRestHandler> {
 
-public class AlexaIntentProvider extends ChatIntentProvider<AlexaPlatform> {
+	private final static String ENDPOINT_URI = "/alexa/receiver";
 
 	public AlexaIntentProvider(AlexaPlatform runtimePlatform, Configuration configuration) {
 		super(runtimePlatform, configuration);
@@ -13,10 +14,12 @@ public class AlexaIntentProvider extends ChatIntentProvider<AlexaPlatform> {
 	}
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+	public String getEndpointURI() {
+		return ENDPOINT_URI;
 	}
 
-	
+	@Override
+	protected AlexaRestHandler createRestHandler() {
+		return new AlexaRestHandler(this);
+	}
 }

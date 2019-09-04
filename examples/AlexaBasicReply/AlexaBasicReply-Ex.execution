@@ -2,5 +2,7 @@ import library "AlexaBasicReply/AlexaBasicReply-Lib.xmi" as AlexaBasicReplyLib
 import library "CoreLibrary"
 import platform "AlexaPlatform"
 
+use provider AlexaPlatform.AlexaIntentProvider
+
 on intent Basic do 
-	action AlexaPlatform.Reply(message: "Hi!")
+	action AlexaPlatform.Reply(message: "Hi! How are you?")
