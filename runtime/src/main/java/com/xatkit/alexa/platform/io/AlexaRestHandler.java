@@ -100,7 +100,7 @@ public class AlexaRestHandler extends JsonRestHandler {
              *  be notified when a new message is available for this requestId.
              */
             try {
-                Thread.sleep(200);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
 
             }
