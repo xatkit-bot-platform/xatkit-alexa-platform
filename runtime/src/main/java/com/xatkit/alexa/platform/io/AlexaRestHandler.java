@@ -110,7 +110,16 @@ public class AlexaRestHandler extends JsonRestHandler {
             } else {
                 // TODO this should not throw an exception, it is possible that the bot doesn't return anything. What
                 //  should we do in this case?
-                throw new XatkitException("No reply message found for Alexa request");
+            	/* COMPLETED Added property RESPONSE_NOT_FOUND_MESSAGE to AlexaPlatform. In the remote case a response
+            	 *  cannot be retrieved (that should be fixed with the Notification pattern for reply retrieval) or it
+            	 *  was not defined by the bot developer (Alexa should always be able to get it's response back to 
+            	 *  provide the user a feedback), a default message, customizable in .properties file can be defined.
+            	 * 
+            	 *  All the requests decaying because of intent not found should be managed under Default_Fallback_Intent
+            	 *  defined in the .execution file for the bot with a reserved AlexaPlatform.Reply action. If that particular
+            	 *  intent will not be defined, the default response will be the RESPONSE_NOT_FOUND_MESSAGE as well.
+            	 */            	
+                outputSpeech.addProperty("text", this.provider.getRuntimePlatform().getResponseNotFoundMessage());
             }
         }
 

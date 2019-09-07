@@ -19,6 +19,7 @@ public class AlexaPlatform extends ChatPlatform {
     private Map<String, String> storedMessages;
 
     private String invocationMessage;
+    private String responseNotFoundMessage;
 
     public AlexaPlatform(XatkitCore xatkitCore, Configuration configuration) {
         super(xatkitCore, configuration);
@@ -26,6 +27,8 @@ public class AlexaPlatform extends ChatPlatform {
         this.storedMessages = new ConcurrentHashMap<>();
         this.invocationMessage = configuration.getString(AlexaUtils.ALEXA_INVOCATION_MESSAGE_KEY,
                 AlexaUtils.DEFAULT_ALEXA_INVOCATION_MESSAGE);
+        this.responseNotFoundMessage = configuration.getString(AlexaUtils.ALEXA_RESPONSE_NOT_FOUND_MESSAGE_KEY,
+                AlexaUtils.DEFAULT_ALEXA_RESPONSE_NOT_FOUND_MESSAGE);
     }
 
     public void storeMessage(String requestId, String message) {
@@ -44,5 +47,9 @@ public class AlexaPlatform extends ChatPlatform {
 
     public String getInvocationMessage() {
         return this.invocationMessage;
+    }
+
+    public String getResponseNotFoundMessage() {
+        return this.responseNotFoundMessage;
     }
 }
