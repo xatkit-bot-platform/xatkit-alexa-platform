@@ -2,12 +2,50 @@
 <execution:ExecutionModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:common="com.xatkit.common" xmlns:execution="com.xatkit.execution">
   <eventProviderDefinitions href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@eventProviderDefinitions.0"/>
   <executionRules>
-    <event href="pathmap://XATKIT_CUSTOM_LIBRARY/AlexaBasicReplyLib#//@eventDefinitions.0"/>
+    <event href="AlexaBasicReply-Lib.xmi#//@eventDefinitions.0"/>
     <instructions xsi:type="execution:ActionInstance">
       <action href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0"/>
       <values>
         <parameter href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0/@parameters.0"/>
         <expression xsi:type="common:StringLiteral" value="Hi! How are you?"/>
+      </values>
+    </instructions>
+  </executionRules>
+  <executionRules>
+    <event href="AlexaBasicReply-Lib.xmi#//@eventDefinitions.1"/>
+    <instructions xsi:type="execution:ActionInstance">
+      <action href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0"/>
+      <values>
+        <parameter href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0/@parameters.0"/>
+        <expression xsi:type="common:OperationCall" name="+">
+          <source xsi:type="common:StringLiteral" value="I see you are "/>
+          <args xsi:type="common:OperationCall" name="+">
+            <source xsi:type="common:OperationCall" name="get">
+              <source xsi:type="common:ContextAccess" contextName="User"/>
+              <args xsi:type="common:StringLiteral" value="wellness"/>
+            </source>
+            <args xsi:type="common:StringLiteral" value="! What can I do for you today?"/>
+          </args>
+        </expression>
+      </values>
+    </instructions>
+  </executionRules>
+  <executionRules>
+    <event href="AlexaBasicReply-Lib.xmi#//@eventDefinitions.2"/>
+    <instructions xsi:type="execution:ActionInstance">
+      <action href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0"/>
+      <values>
+        <parameter href="pathmap://XATKIT_CORE_PLATFORM/AlexaPlatform.xmi#//@actions.0/@parameters.0"/>
+        <expression xsi:type="common:OperationCall" name="+">
+          <source xsi:type="common:StringLiteral" value="Ok, I will tell you a "/>
+          <args xsi:type="common:OperationCall" name="+">
+            <source xsi:type="common:OperationCall" name="get">
+              <source xsi:type="common:ContextAccess" contextName="User"/>
+              <args xsi:type="common:StringLiteral" value="needs"/>
+            </source>
+            <args xsi:type="common:StringLiteral" value=": Once upon a time, there was an invisible castle. No one saw it..."/>
+          </args>
+        </expression>
       </values>
     </instructions>
   </executionRules>
