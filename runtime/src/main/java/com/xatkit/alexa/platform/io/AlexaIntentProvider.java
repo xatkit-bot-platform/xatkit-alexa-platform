@@ -10,7 +10,6 @@ public class AlexaIntentProvider extends WebhookChatIntentProvider<AlexaPlatform
 
 	public AlexaIntentProvider(AlexaPlatform runtimePlatform, Configuration configuration) {
 		super(runtimePlatform, configuration);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
