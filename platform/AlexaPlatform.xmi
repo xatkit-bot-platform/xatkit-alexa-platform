@@ -3,6 +3,7 @@
   <eventProviderDefinitions xsi:type="platform:InputProviderDefinition" name="AlexaIntentProvider">
     <outContexts name="alexa" lifeSpan="1">
       <parameters name="request_id"/>
+      <parameters name="username"/>
     </outContexts>
   </eventProviderDefinitions>
   <actions name="Reply">

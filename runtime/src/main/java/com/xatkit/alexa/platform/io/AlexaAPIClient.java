@@ -51,6 +51,10 @@ public class AlexaAPIClient{
 			Log.info("Output from Alexa API Server .... \n");
 			/*while ((*/this.response += br.readLine();/*) != null) {}*/
 			Log.info("{0}",this.response);
+			
+			//Strips bad chars
+			this.response = this.response.replaceAll("\"", "");
+			
 			conn.disconnect();			
 			
 		} catch (MalformedURLException e) {

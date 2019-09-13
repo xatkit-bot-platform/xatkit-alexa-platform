@@ -91,16 +91,20 @@ public class AlexaRestHandler extends JsonRestHandler {
              */
             //Retrieves username from runtime Platform as got from API request during launchIntent
             String username = this.provider.getRuntimePlatform().getMessage(userId);
+            if(username == null)
+            	username = "";
             
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
-                    ChatUtils.CHAT_USERNAME_CONTEXT_KEY, username);
+            		AlexaUtils.CHAT_USERNAME_CONTEXT_KEY, username);
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
-                    ChatUtils.CHAT_CHANNEL_CONTEXT_KEY, sessionId);
+            		AlexaUtils.CHAT_CHANNEL_CONTEXT_KEY, sessionId);
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
-                    ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY, generalIntent);
+            		AlexaUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY, generalIntent);
             session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
                     AlexaUtils.ALEXA_REQUEST_ID_CONTEXT_KEY, requestId);
-
+            session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
+                    AlexaUtils.CHAT_USERNAME_CONTEXT_KEY, username);
+            
             provider.sendEventInstance(intent, session);
         }
 

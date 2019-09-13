@@ -8,22 +8,22 @@
   </eventDefinitions>
   <eventDefinitions xsi:type="intent:IntentDefinition" name="HowAmI" follows="//@eventDefinitions.0">
     <outContexts name="User">
-      <parameters name="wellness" textFragment="Placeholder2">
+      <parameters name="wellness" textFragment="Placeholder0">
         <entity xsi:type="intent:BaseEntityDefinitionReference">
           <baseEntity/>
         </entity>
       </parameters>
     </outContexts>
-    <trainingSentences>Placeholder2 thanks</trainingSentences>
+    <trainingSentences>Placeholder0 thanks</trainingSentences>
   </eventDefinitions>
   <eventDefinitions xsi:type="intent:IntentDefinition" name="TellMeA">
     <outContexts name="User">
-      <parameters name="needs" textFragment="Placeholder3">
+      <parameters name="needs" textFragment="Placeholder1">
         <entity xsi:type="intent:BaseEntityDefinitionReference">
           <baseEntity/>
         </entity>
       </parameters>
     </outContexts>
-    <trainingSentences>tell me a Placeholder3</trainingSentences>
+    <trainingSentences>tell me a Placeholder1</trainingSentences>
   </eventDefinitions>
 </intent:Library>
