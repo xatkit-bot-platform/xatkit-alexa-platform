@@ -70,7 +70,7 @@ public class AlexaRestHandler extends JsonRestHandler {
         if (!isLaunchRequest) {
             // this is not a launch request, we need to retrieve the general intent (i.e. the input sentence)
         	//GENERAL INTENT
-            JsonObject generalIntentObject = contentObject.get("intent").getAsJsonObject()
+            JsonObject generalIntentObject = request.get("intent").getAsJsonObject()
                     .get("slots").getAsJsonObject()
                     .get("general_intent").getAsJsonObject();            
             generalIntent = generalIntentObject.get("value").getAsString();            
