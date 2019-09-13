@@ -52,34 +52,28 @@ public class AlexaRestHandler extends JsonRestHandler {
         XatkitSession session = provider.getRuntimePlatform().getXatkitCore().getOrCreateXatkitSession("alexa");
 
         // Continues parsing to retrieve general intent
+        // Retrieves JSON branches
+    	
+    	// USERID
+        JsonObject userIDObject = contentObject.get("context").getAsJsonObject()
+                .get("System").getAsJsonObject()
+                .get("user").getAsJsonObject();
+        userId = userIDObject.get("userId").getAsString();
+        Log.info("Found userId: {0}", userId);
+
+        // SESSIONID
+        JsonObject sessionIDObject = contentObject.get("session").getAsJsonObject();
+        sessionId = sessionIDObject.get("sessionId").getAsString();
+        Log.info("Found sessionId: {0}", sessionId);
+        
+
         if (!isLaunchRequest) {
             // this is not a launch request, we need to retrieve the general intent (i.e. the input sentence)
-
-            // Retrieves JSON branches
-        	
-        	// USERID
-            JsonObject userIDObject = request.get("context").getAsJsonObject()
-                    .get("System").getAsJsonObject()
-                    .get("user").getAsJsonObject();
-            
-            userId = userIDObject.get("userId").getAsString();
-            
-            Log.info("Found userId: {0}", userId);
-
-            // SESSIONID
-            JsonObject sessionIDObject = request.get("session").getAsJsonObject();
-            
-            sessionId = sessionIDObject.get("sessionId").getAsString();
-            
-            Log.info("Found sessionId: {0}", sessionId);
-            
         	//GENERAL INTENT
-            JsonObject generalIntentObject = request.get("intent").getAsJsonObject()
+            JsonObject generalIntentObject = contentObject.get("intent").getAsJsonObject()
                     .get("slots").getAsJsonObject()
-                    .get("general_intent").getAsJsonObject();
-            
-            generalIntent = generalIntentObject.get("value").getAsString();
-            
+                    .get("general_intent").getAsJsonObject();            
+            generalIntent = generalIntentObject.get("value").getAsString();            
             Log.info("Found general intent: {0}", generalIntent);
 
             RecognizedIntent intent = IntentRecognitionHelper.getRecognizedIntent(generalIntent, session,
@@ -92,15 +86,14 @@ public class AlexaRestHandler extends JsonRestHandler {
              *  to the execution engine.
              */
             // TODO: I don't know if we can find the username from the payload content?
-            /* STAND-BY-ED
-             * The ability to retrieve user infos from Alexa is to use the UserId sent by the request with the
-             * https://api.amazon.com/user/profile API. To do so, the skill needs to be able to manage Account Linking.
-             * That is accomplished client side in the application, so I think we can save here the userId and let the bot
-             * handle the recognition and connection if needed
+            /* COMPLETED 
+             * API request is handled during LaunchIntent and saved as a message corresponding to the userId
              */
+            //Retrieves username from runtime Platform as got from API request during launchIntent
+            String username = this.provider.getRuntimePlatform().getMessage(userId);
+            
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
-                    ChatUtils.CHAT_USERNAME_CONTEXT_KEY, userId);
-            // This should be set with an identifier from the payload content that represent the channel/session
+                    ChatUtils.CHAT_USERNAME_CONTEXT_KEY, username);
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
                     ChatUtils.CHAT_CHANNEL_CONTEXT_KEY, sessionId);
             session.getRuntimeContexts().setContextValue(ChatUtils.CHAT_CONTEXT_KEY, 1,
@@ -125,6 +118,32 @@ public class AlexaRestHandler extends JsonRestHandler {
             // TODO: retrieve and send welcome message from AlexaUtils and configuration
         	/* COMPLETED */
             outputSpeech.addProperty("text", this.provider.getRuntimePlatform().getInvocationMessage());
+            //Requests username to Alexa API services
+            //Checks if corresponding permissions are loaded
+            JsonObject permissionsObject = contentObject.get("context").getAsJsonObject()
+                    .get("System").getAsJsonObject()
+                    .get("user").getAsJsonObject()
+                    .get("permissions").getAsJsonObject();
+            
+            this.provider.getRuntimePlatform().storeMessage(userId, "");
+            
+            if(permissionsObject != null) {
+            	String apiAccessToken = permissionsObject.get("consentToken").getAsString();            
+                Log.info("Found permission access token, requesting username");
+                
+                //Gets api endpoint
+                JsonObject endpointObject = contentObject.get("context").getAsJsonObject()
+                        .get("System").getAsJsonObject();
+                String apiEndpoint = endpointObject.get("apiEndpoint").getAsString();
+                
+                //Sends request
+                AlexaAPIClient alexaAPIClient = new AlexaAPIClient(apiEndpoint, apiAccessToken, session);
+                Log.info("name: {0}",alexaAPIClient.getResponse());
+                
+                //Stores request as userId username
+                this.provider.getRuntimePlatform().storeMessage(userId, alexaAPIClient.getResponse());
+            }            
+            
         } else {
             /*
              * Quickfix: wait here to be sure the Reply action has been executed. A better implementation would be to
