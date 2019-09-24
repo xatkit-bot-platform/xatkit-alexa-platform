@@ -3,7 +3,6 @@ package com.xatkit.alexa.platform.io;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xatkit.alexa.AlexaUtils;
-import com.xatkit.core.XatkitException;
 import com.xatkit.core.platform.io.IntentRecognitionHelper;
 import com.xatkit.core.server.JsonRestHandler;
 import com.xatkit.core.session.XatkitSession;
@@ -124,14 +123,15 @@ public class AlexaRestHandler extends JsonRestHandler {
             outputSpeech.addProperty("text", this.provider.getRuntimePlatform().getInvocationMessage());
             //Requests username to Alexa API services
             //Checks if corresponding permissions are loaded
-            JsonObject permissionsObject = contentObject.get("context").getAsJsonObject()
+            JsonElement permissionsElement = contentObject.get("context").getAsJsonObject()
                     .get("System").getAsJsonObject()
                     .get("user").getAsJsonObject()
-                    .get("permissions").getAsJsonObject();
+                    .get("permissions");
             
             this.provider.getRuntimePlatform().storeMessage(userId, "");
             
-            if(permissionsObject != null) {
+            if(nonNull(permissionsElement)) {
+                JsonObject permissionsObject = permissionsElement.getAsJsonObject();
             	String apiAccessToken = permissionsObject.get("consentToken").getAsString();            
                 Log.info("Found permission access token, requesting username");
                 
