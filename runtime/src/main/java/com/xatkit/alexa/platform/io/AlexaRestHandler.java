@@ -102,6 +102,8 @@ public class AlexaRestHandler extends JsonRestHandler {
             session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
                     AlexaUtils.ALEXA_REQUEST_ID_CONTEXT_KEY, requestId);
             session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
+                    AlexaUtils.ALEXA_USERID_CONTEXT_KEY, userId);
+            session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
                     AlexaUtils.CHAT_USERNAME_CONTEXT_KEY, username);
             
             provider.sendEventInstance(intent, session);

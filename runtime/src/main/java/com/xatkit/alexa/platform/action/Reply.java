@@ -13,7 +13,7 @@ public class Reply extends RuntimeMessageAction<AlexaPlatform> {
 
 	@Override
 	protected Object compute() throws Exception {
-		String requestId = (String) this.session.getRuntimeContexts().getContextValue("alexa", "requestId");
+		String requestId = (String) this.session.getRuntimeContexts().getContextValue("alexa", "request_id");
 		this.runtimePlatform.storeMessage(requestId, message);
 		return null;
 	}
