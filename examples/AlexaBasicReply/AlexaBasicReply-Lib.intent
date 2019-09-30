@@ -3,5 +3,21 @@ Library AlexaBasicReplyIntents
 intent Basic {
 	inputs {
 		"Hello!"
+		"hello"
+		"hello!"
+	}
+	creates context User
+}
+
+
+intent HowAmI follows Basic {
+	inputs {
+		"(User:wellness=@any) thanks"
+	}
+}
+
+intent TellMeA {
+	inputs {
+		"tell me a (User:needs=@any)"
 	}
 }

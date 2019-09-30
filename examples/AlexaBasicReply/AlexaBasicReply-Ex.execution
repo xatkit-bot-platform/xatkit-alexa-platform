@@ -2,5 +2,13 @@ import library "AlexaBasicReply/AlexaBasicReply-Lib.xmi" as AlexaBasicReplyLib
 import library "CoreLibrary"
 import platform "AlexaPlatform"
 
+use provider AlexaPlatform.AlexaIntentProvider
+
 on intent Basic do 
-	action AlexaPlatform.Reply(message: "Hi!")
+	action AlexaPlatform.Reply(message: "Hi, " + context(alexa).get("username") + "! How are you?")
+	
+on intent HowAmI do 
+	action AlexaPlatform.Reply(message: "I see you are " +  context(User).get("wellness") + "! What can I do for you today?")
+	
+on intent TellMeA do 
+	action AlexaPlatform.Reply(message: "Ok, I will tell you a " +  context(User).get("needs") + ": Once upon a time, there was an invisible castle. No one saw it...")
