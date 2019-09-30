@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<intent:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:intent="com.xatkit.intent" name="AlexaBasicReplyIntents">
+  <eventDefinitions xsi:type="intent:IntentDefinition" name="Basic" followedBy="//@eventDefinitions.1">
+    <outContexts name="User"/>
+    <trainingSentences>Hello!</trainingSentences>
+    <trainingSentences>hello</trainingSentences>
+    <trainingSentences>hello!</trainingSentences>
+  </eventDefinitions>
+  <eventDefinitions xsi:type="intent:IntentDefinition" name="HowAmI" follows="//@eventDefinitions.0">
+    <outContexts name="User">
+      <parameters name="wellness" textFragment="Placeholder0">
+        <entity xsi:type="intent:BaseEntityDefinitionReference">
+          <baseEntity/>
+        </entity>
+      </parameters>
+    </outContexts>
+    <trainingSentences>Placeholder0 thanks</trainingSentences>
+  </eventDefinitions>
+  <eventDefinitions xsi:type="intent:IntentDefinition" name="TellMeA">
+    <outContexts name="User">
+      <parameters name="needs" textFragment="Placeholder1">
+        <entity xsi:type="intent:BaseEntityDefinitionReference">
+          <baseEntity/>
+        </entity>
+      </parameters>
+    </outContexts>
+    <trainingSentences>tell me a Placeholder1</trainingSentences>
+  </eventDefinitions>
+</intent:Library>
