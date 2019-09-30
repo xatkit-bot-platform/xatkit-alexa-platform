@@ -2,7 +2,6 @@ package com.xatkit.alexa.platform.action;
 
 import com.xatkit.alexa.AlexaUtils;
 import com.xatkit.alexa.platform.AlexaPlatform;
-import com.xatkit.core.platform.action.RuntimeAction;
 import com.xatkit.core.platform.action.RuntimeMessageAction;
 import com.xatkit.core.session.XatkitSession;
 

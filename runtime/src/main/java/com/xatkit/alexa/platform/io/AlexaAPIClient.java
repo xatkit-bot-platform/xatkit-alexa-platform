@@ -51,6 +51,12 @@ public class AlexaAPIClient{
 			Log.info("Output from Alexa API Server .... \n");
 			/*while ((*/this.response += br.readLine();/*) != null) {}*/
 			Log.info("{0}",this.response);
+						
+			//Controls the presence of '{' chars to indicate missing authorizations or server errors
+			if(this.response.contains("{")) {
+				Log.error("Authorization failure detected when retrieving Full Name");
+				this.response = "";
+			}
 			
 			//Strips bad chars
 			this.response = this.response.replaceAll("\"", "");
