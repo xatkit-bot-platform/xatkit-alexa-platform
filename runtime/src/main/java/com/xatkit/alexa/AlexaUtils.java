@@ -10,6 +10,8 @@ public interface AlexaUtils extends ChatUtils {
 
 	String ALEXA_REQUEST_ID_CONTEXT_KEY = "request_id";
 	
+	String ALEXA_SESSION_ID_CONTEXT_KEY = "session_id";
+	
 	String ALEXA_USERID_CONTEXT_KEY = "user_id";
 
 	String ALEXA_INVOCATION_MESSAGE_KEY = "alexa.invocation.message"; //Key to retrieve default invocation welcome message

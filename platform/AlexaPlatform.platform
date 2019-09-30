@@ -6,6 +6,7 @@ providers {
 	input AlexaIntentProvider {
 		creates context alexa with lifespan 1 {
 			sets parameter request_id
+			sets parameter session_id
 			sets parameter user_id
 			sets parameter username
 		}

@@ -105,6 +105,11 @@ public class AlexaRestHandler extends JsonRestHandler {
                     AlexaUtils.ALEXA_USERID_CONTEXT_KEY, userId);
             session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
                     AlexaUtils.CHAT_USERNAME_CONTEXT_KEY, username);
+            session.getRuntimeContexts().setContextValue(AlexaUtils.ALEXA_CONTEXT_KEY, 1,
+                    AlexaUtils.ALEXA_SESSION_ID_CONTEXT_KEY, sessionId);
+            //Adds a context value to wait for the response, bound to the current sessionId
+            session.getRuntimeContexts().setContextValue(sessionId, 1,
+                    AlexaUtils.ALEXA_REQUEST_ID_CONTEXT_KEY, requestId);
             
             provider.sendEventInstance(intent, session);
         }
@@ -161,6 +166,7 @@ public class AlexaRestHandler extends JsonRestHandler {
 
             }
             String responseMessage = this.provider.getRuntimePlatform().getMessage(requestId);
+    		Log.info("Request requested: {0}", requestId);
             if (nonNull(responseMessage)) {
                 outputSpeech.addProperty("text", responseMessage);
             } else {
