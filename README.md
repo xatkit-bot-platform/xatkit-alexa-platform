@@ -28,3 +28,7 @@ The Alexa platform supports the following configuration options
 | -------------------- | ------ | ------------------------------------------------------------ | ------------- |
 | `xatkit.alexa.invocationMessage` | String | The message that Xatkit uses to respond back to the user once the Alexa skill it's launched. It is not possible to retrieve an intent from the `LaunchRequest`  | **Optional** |
 | `xatkit.alexa.responseNotFoundMessage` | String | The message that Xatkit uses to respond back to Alexa in the case something wrong happens during the processing of the request  | **Optional** |
+
+## Usage
+
+Check [our tutorial here](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/wiki) to know how to **deploy an Alexa skill** and connect it to **Xatkit** 
