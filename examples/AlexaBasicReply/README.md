@@ -52,7 +52,7 @@ If you want to ask the user for the Permissions to use its **Full Name** and sto
 ## Add the Endpoint
 To have a Skill working you need a public REST Endpoint that works over HTTPS. If you have one already, you can add it to the **Endpoint** section of the console menu, under the **HTTPS** choice, on the region(s) you prefer. Remember to save and build the model.
 
-Otherwise, you can follow [this tutorial](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/new/master/examples/AlexaBasicReply#deploy-ngrok) to know how to create your hosted endpoint using **Ngrok**
+Otherwise, you can follow [this tutorial](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/tree/master/examples/AlexaBasicReply#deploy-ngrok) to know how to create your hosted endpoint using **Ngrok**
 
 ## Test your skill
 Head over to the **Test** section from the Alexa developer console **topbar**. If it is the first time you open that up, you will need to change the Test permission from Off to **Development**. Now you can start talking to Xatkit through this skill, using the **Alexa simulator**!
@@ -78,5 +78,5 @@ Copy the **https** one (_https://xxxxxxxx.ngrok.io_), go to the **Endpoint** sec
 ```
 My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority
 ```
-Save and Build the model. Your Alexa skill is now ready to talk with Xatkit, [go out and test it](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/new/master/examples/AlexaBasicReply#test-your-skill)!
+Save and Build the model. Your Alexa skill is now ready to talk with Xatkit, [go out and test it](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/tree/master/examples/AlexaBasicReply#test-your-skill)!
 > Note: Ngrok service remains open until you close the terminal or restart your computer. There's need to restart it every time you restart your Xatkit bot, but every time you reload the service you need to change the endpoint on your skill.
