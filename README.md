@@ -31,4 +31,4 @@ The Alexa platform supports the following configuration options
 
 ## Usage
 
-Check [our tutorial here](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/wiki) to know how to **deploy an Alexa skill** and connect it to **Xatkit** 
+Check [our tutorial here](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/tree/master/examples/AlexaBasicReply#xatkit---alexa-platform) to know how to **deploy an Alexa skill** and connect it to **Xatkit** 
