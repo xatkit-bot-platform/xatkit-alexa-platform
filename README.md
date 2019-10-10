@@ -2,6 +2,8 @@ Xatkit Alexa Platform
 =====
 
 [![License Badge](https://img.shields.io/badge/license-EPL%202.0-brightgreen.svg)](https://opensource.org/licenses/EPL-2.0)
+[![Build Status](https://travis-ci.com/xatkit-bot-platform/xatkit-alexa-platform.svg?branch=master)](https://travis-ci.com/xatkit-bot-platform/xatkit-alexa-platform)
+[![Wiki Badge](https://img.shields.io/badge/doc-wiki-blue)](https://github.com/xatkit-bot-platform/xatkit-releases/wiki/Xatkit-Alexa-Platform)
 
 Create an Alexa Skill server and respond to the user using the Xatkit defined intent library.
 
@@ -26,3 +28,7 @@ The Alexa platform supports the following configuration options
 | -------------------- | ------ | ------------------------------------------------------------ | ------------- |
 | `xatkit.alexa.invocationMessage` | String | The message that Xatkit uses to respond back to the user once the Alexa skill it's launched. It is not possible to retrieve an intent from the `LaunchRequest`  | **Optional** |
 | `xatkit.alexa.responseNotFoundMessage` | String | The message that Xatkit uses to respond back to Alexa in the case something wrong happens during the processing of the request  | **Optional** |
+
+## Usage
+
+Check [our tutorial here](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/tree/master/examples/AlexaBasicReply#xatkit---alexa-platform) to know how to **deploy an Alexa skill** and connect it to **Xatkit** 
