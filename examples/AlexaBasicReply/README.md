@@ -74,7 +74,7 @@ You will notice two **Forwarding** voices on the console, like this:
 Forwarding                    http://xxxxxxxx.ngrok.io -> http://localhost:5000
 Forwarding                    https://xxxxxxxx.ngrok.io -> http://localhost:5000
 ```
-Copy the **https** one (_https://xxxxxxxx.ngrok.io_), go to the **Endpoint** section of your skill in the Alexa developer console, select **HTTPS** mode and paste it in the region field you desire. Under that, select the option that says
+Copy the **https** one (_https://xxxxxxxx.ngrok.io_) and append, go to the **Endpoint** section of your skill in the Alexa developer console, select **HTTPS** mode and paste it in the region field you desire. Edit the pasted value to append `/alexa/receiver` to it (the complete url should be _https://xxxxxxxx.ngrok.io/alexa/receiver_). Under that, select the option that says
 ```
 My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority
 ```
