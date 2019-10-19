@@ -9,6 +9,8 @@ import com.xatkit.core.session.XatkitSession;
 import com.xatkit.intent.RecognizedIntent;
 import com.xatkit.plugins.chat.ChatUtils;
 import fr.inria.atlanmod.commons.log.Log;
+import io.grpc.netty.shaded.io.netty.handler.codec.http.multipart.HttpPostRequestDecoder.EndOfDataDecoderException;
+
 import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 
@@ -130,30 +132,20 @@ public class AlexaRestHandler extends JsonRestHandler {
             outputSpeech.addProperty("text", this.provider.getRuntimePlatform().getInvocationMessage());
             //Requests username to Alexa API services
             //Checks if corresponding permissions are loaded
-            JsonElement permissionsElement = contentObject.get("context").getAsJsonObject()
-                    .get("System").getAsJsonObject()
-                    .get("user").getAsJsonObject()
-                    .get("permissions");
+            //Gets api endpoint
+            JsonObject endpointObject = contentObject.get("context").getAsJsonObject()
+                    .get("System").getAsJsonObject();
+            String apiEndpoint = endpointObject.get("apiEndpoint").getAsString();
+        
+        	String apiAccessToken = endpointObject.get("apiAccessToken").getAsString();            
+            Log.info("Found permission access token, requesting username");
             
-            this.provider.getRuntimePlatform().storeMessage(userId, "");
+            //Sends request
+            AlexaAPIClient alexaAPIClient = new AlexaAPIClient(apiEndpoint, apiAccessToken, session);
+            Log.info("name found: {0}",alexaAPIClient.getResponse());
             
-            if(nonNull(permissionsElement)) {
-                JsonObject permissionsObject = permissionsElement.getAsJsonObject();
-            	String apiAccessToken = permissionsObject.get("consentToken").getAsString();            
-                Log.info("Found permission access token, requesting username");
-                
-                //Gets api endpoint
-                JsonObject endpointObject = contentObject.get("context").getAsJsonObject()
-                        .get("System").getAsJsonObject();
-                String apiEndpoint = endpointObject.get("apiEndpoint").getAsString();
-                
-                //Sends request
-                AlexaAPIClient alexaAPIClient = new AlexaAPIClient(apiEndpoint, apiAccessToken, session);
-                Log.info("name: {0}",alexaAPIClient.getResponse());
-                
-                //Stores request as userId username
-                this.provider.getRuntimePlatform().storeMessage(userId, alexaAPIClient.getResponse());
-            }            
+            //Stores request as userId username
+            this.provider.getRuntimePlatform().storeMessage(userId, alexaAPIClient.getResponse());            
             
         } else {
             /*
