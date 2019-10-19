@@ -18,6 +18,10 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
                 }
             ],
             "types": [
