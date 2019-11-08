@@ -14,5 +14,5 @@ providers {
 }
 
 actions {
-	Reply(message)
+	Reply(message : String)
 }
