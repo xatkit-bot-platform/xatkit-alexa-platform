@@ -48,10 +48,8 @@ bin
 
 #Allows custom installation on multiple workspaces
 
-platform/\.project
-runtime/\.project
+runtime/.project
+runtime/.classpath
 
-runtime/target/maven-archiver/pom\.properties
+runtime/target/maven-archiver/pom.properties
 target/maven-archiver/
-
-.classpath
