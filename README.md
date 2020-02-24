@@ -5,7 +5,7 @@ Xatkit Alexa Platform
 [![Build Status](https://travis-ci.com/xatkit-bot-platform/xatkit-alexa-platform.svg?branch=master)](https://travis-ci.com/xatkit-bot-platform/xatkit-alexa-platform)
 [![Wiki Badge](https://img.shields.io/badge/doc-wiki-blue)](https://github.com/xatkit-bot-platform/xatkit-alexa-platform/blob/master/examples/AlexaBasicReply/README.md)
 
-Create an Alexa Skill server and respond to the user using the Xatkit defined intent library. This platform is bundled with the [Xatkit release](https://github.com/xatkit-bot-platform/xatkit-releases/releases).
+Create an Alexa Skill server and respond to the user using the Xatkit defined intent library.
 
 ## Providers
 
